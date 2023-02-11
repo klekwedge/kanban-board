@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { changeCards } from "../../slices/kanbanSlice/kanbanSlice";
 import { ICard, ITask } from "../../types/types";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import "./Task.scss";
 
 interface TaskProps {
   task: ITask;
   card: ICard;
   deleteTask: (id: any) => void;
-  changeCards: (boards: ICard[]) => void;
 }
 
-function Task({ deleteTask, changeCards, task, card }: TaskProps) {
-  const [boards, setBoards] = useState([]);
+function Task({ deleteTask, task, card }: TaskProps) {
+  const { cards } = useAppSelector((state) => state.kanban);
+  const dispatch = useAppDispatch();
 
-  const [currentBoard, setCurrentBoard] = useState<ICard>();
-  const [currentItem, setCurrentItem] = useState<ITask>();
+  const [currentBoard, setCurrentBoard] = useState<ICard>(card);
+  const [currentItem, setCurrentItem] = useState<ITask>(task);
 
   // курсор мыши наведен на элемент при перетаскивани
   function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
@@ -50,24 +52,24 @@ function Task({ deleteTask, changeCards, task, card }: TaskProps) {
     if (currentBoard && currentItem) {
       const currentIndex = currentBoard.tasks.indexOf(currentItem);
 
-      currentBoard.tasks.splice(currentIndex, 1)
+      currentBoard.tasks.splice(currentIndex, 1);
 
       const dropIndex = board.tasks.indexOf(item);
       board.tasks.splice(dropIndex + 1, 0, currentItem);
 
-      changeCards(
-        boards.map((item) => {
-          if (item.id === board.id) {
-            return board;
-          }
+      const newCards = cards.map((item) => {
+        if (item.id === board.id) {
+          return board;
+        }
 
-          if (item.id === currentBoard.id) {
-            return currentBoard
-          }
+        if (item.id === currentBoard.id) {
+          return currentBoard;
+        }
 
-          return b;
-        })
-      );
+        return item;
+      });
+
+      dispatch(changeCards(newCards));
     }
   }
 

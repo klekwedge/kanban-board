@@ -1,35 +1,39 @@
-import { useState } from "react";
-import { ICard, ITask } from "../../types/types";
+import { ICard } from "../../types/types";
 import AddButton from "../AddButton/AddButton";
 import Task from "../Task/Task";
 import "./Card.scss";
 
-interface CardProps {
-  card: ICard;
-  deleteTaskFromCard: (cardId: string, taskId: string) => void;
-  deleteCard: (cardId: string) => void;
-  addTask: (taskName: string, cardId: string) => void;
-  changeCards: () => void;
-}
-
-function Card({
-  card,
+import {
   deleteTaskFromCard,
   deleteCard,
   addTask,
-  changeCards
-}: CardProps) {
+} from "../../slices/kanbanSlice/kanbanSlice";
+import { useAppDispatch } from "../hooks/redux-hook";
+
+interface CardProps {
+  card: ICard;
+}
+
+function Card({ card }: CardProps) {
+  const dispatch = useAppDispatch();
+
   function deleteTask(taskId: string) {
-    deleteTaskFromCard(card.id, taskId);
+    dispatch(
+      deleteTaskFromCard({
+        cardId: card.id,
+        taskId: taskId,
+      })
+    );
   }
 
   function deleteCardEvent(cardId: string) {
-    deleteCard(cardId);
+    dispatch(deleteCard(cardId));
   }
 
   function addTaskEvent(taskName: string) {
-    addTask(taskName, card.id);
+    dispatch(addTask({ taskName: taskName, cardId: card.id }));
   }
+
   //
   //
   //
@@ -67,13 +71,11 @@ function Card({
     }
   }
 
-  const board = 1;
-
   return (
     <li
       className="app__card card"
       onDragOver={(e) => dragOverHandler(e)}
-      onDrop={(e) => dropCardHandler(e, board)}
+      onDrop={(e) => dropCardHandler(e, card)}
     >
       <div className="card__heading">
         <h2>{card.title}</h2>
@@ -91,7 +93,6 @@ function Card({
               task={task}
               deleteTask={deleteTask}
               card={card}
-              changeCards={changeCards}
             />
           ))}
         </ul>
