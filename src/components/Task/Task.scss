@@ -1,0 +1,22 @@
+.card__item {
+  padding: 8px 8px 8px 12px;
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
+  border-radius: 3px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19px;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+
+  & img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}

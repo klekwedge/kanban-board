@@ -4,6 +4,7 @@
   background: #dfe3e6;
   border-radius: 3px;
   max-height: 43px;
+  min-width: 270px;
   padding: 12px;
   cursor: pointer;
 
@@ -12,7 +13,7 @@
     height: 15px;
   }
 
-  & h2 {
+  & h3 {
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 400;

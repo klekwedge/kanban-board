@@ -1,4 +1,5 @@
 import AddButton from "../AddButton/AddButton";
+import Task from "../Task/Task";
 import "./Card.scss";
 
 interface CardProps {
@@ -8,20 +9,23 @@ interface CardProps {
 function Card({ title }: CardProps) {
   return (
     <li className="app__card card">
-      <h2>{title}</h2>
+      <div className="card__heading">
+        <h2>{title}</h2>
+        <img src="/public/svg/close.svg" />
+      </div>
+
       <div className="card__block">
         <ul>
-          <li>Task 1</li>
-          <li>Task 2</li>
-          <li>Task 3</li>
-          <li>Task 3</li>
-          <li>Task 3</li>
-          <li>Task 3</li>
-          <li>Task 3</li>
-          <li>Task 3</li>
-          <li>Task 4</li>
+          <Task title={"ffccffccffccffccffccffccffccffccffccffc"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
         </ul>
-        <AddButton title={'Добавить еще одну карточку'}/>
+        <AddButton title={"Добавить еще одну карточку"} />
       </div>
     </li>
   );

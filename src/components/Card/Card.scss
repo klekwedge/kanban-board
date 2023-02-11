@@ -13,9 +13,6 @@
     font-size: 13px;
     line-height: 19px;
     color: #000000;
-    margin-bottom: 12px;
-    padding: 12px 12px 0px 12px;
-    margin-bottom: 12px;
   }
 
   & ul {
@@ -23,19 +20,6 @@
     flex-direction: column;
     gap: 8px;
     padding: 0px 12px;
-  }
-
-  & ul li {
-    padding: 8px 8px 8px 12px;
-    background: #ffffff;
-    box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
-    border-radius: 3px;
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 19px;
-    color: #000000;
   }
 }
 
@@ -60,5 +44,20 @@
 
   & div {
     flex-grow: 0;
+  }
+}
+
+.card__heading {
+  padding: 12px 12px 0px 12px;
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+
+  & img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 }
