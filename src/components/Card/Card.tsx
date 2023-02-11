@@ -10,6 +10,7 @@ interface CardProps {
   cardId: string;
   deleteTaskFromCard: (cardId: string, taskId: string) => void;
   deleteCard: (cardId: string) => void;
+  addTask: (taskName: string, cardId: string) => void;
 }
 
 function Card({
@@ -18,6 +19,7 @@ function Card({
   cardId,
   deleteTaskFromCard,
   deleteCard,
+  addTask
 }: CardProps) {
   function deleteTask(taskId: string) {
     deleteTaskFromCard(cardId, taskId);
@@ -25,6 +27,10 @@ function Card({
 
   function deleteCardEvent(cardId: string) {
     deleteCard(cardId);
+  }
+
+  function addTaskEvent(taskName: string) {
+    addTask(taskName, cardId);
   }
 
   return (
@@ -49,7 +55,7 @@ function Card({
           ))}
         </ul>
       </div>
-      <AddButton title={"Добавить еще одну карточку"} />
+      <AddButton title={"Добавить еще одну карточку"} addItem={addTaskEvent} />
     </li>
   );
 }

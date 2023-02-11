@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
 import cardsData from "../../data";
@@ -11,6 +12,29 @@ function App() {
   useEffect(() => {
     setCards(cardsData);
   }, []);
+
+  function addCard(cardName: string) {}
+
+  function addTask(taskName: string, cardId: string) {
+    setCards([
+      ...cards.map((card) => {
+        if (card.id === cardId) {
+          return {
+            ...card,
+            tasks: [
+              ...card.tasks,
+              {
+                taskTitle: taskName,
+                id: uuidv4(),
+              },
+            ],
+          };
+        } else {
+          return card;
+        }
+      }),
+    ]);
+  }
 
   function deleteTaskFromCard(cardId: string, taskId: string) {
     setCards([
@@ -28,7 +52,7 @@ function App() {
   }
 
   function deleteCard(cardId: string) {
-    console.log('!');
+    console.log("!");
     setCards([...cards.filter((card) => card.id !== cardId)]);
   }
 
@@ -43,10 +67,11 @@ function App() {
             tasks={item.tasks}
             deleteCard={deleteCard}
             deleteTaskFromCard={deleteTaskFromCard}
+            addTask={addTask}
           />
         ))}
       </ul>
-      <AddButton title={"Добавить еще одну колонку"} />
+      <AddButton title={"Добавить еще одну колонку"} addItem={addCard} />
       <img src="/public/img/background.jpg" />
     </div>
   );

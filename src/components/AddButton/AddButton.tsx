@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./AddButton.scss";
 
 interface AddButtonProps {
   title: string;
+  addItem: (nameItem: string) => void;
 }
 
-function AddButton({ title }: AddButtonProps) {
+function AddButton({ title, addItem }: AddButtonProps) {
+  const textAreaRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [textAreaValue, setTextAreaValue] = useState("");
 
   function openDialog() {
     setIsDialogOpen(true);
@@ -14,6 +17,15 @@ function AddButton({ title }: AddButtonProps) {
 
   function closeDialog() {
     setIsDialogOpen(false);
+  }
+
+  function addTask() {
+    if (textAreaRef.current && textAreaRef.current.value !== "") {
+      addItem(textAreaRef.current.value);
+      setTextAreaValue("");
+    } else {
+      textAreaRef.current.style.border = "2px solid #FF4040";
+    }
   }
 
   return (
@@ -26,12 +38,17 @@ function AddButton({ title }: AddButtonProps) {
       ) : (
         <div className="add__dialog dialog">
           <textarea
+            ref={textAreaRef}
             className="dialog__textarea"
             placeholder="Введите название карточки"
             rows={1}
+            value={textAreaValue}
+            onInput={(e) => setTextAreaValue(e.target.value)}
           />
           <div className="dialog__buttons">
-            <button className="dialog__add">Добавить карточку</button>
+            <button className="dialog__add" onClick={addTask}>
+              Добавить карточку
+            </button>
             <button className="dialog__close" onClick={() => closeDialog()}>
               <img src="/public/svg/close.svg" />
             </button>
