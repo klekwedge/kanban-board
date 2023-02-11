@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
+import cardsData from "../../data";
 import "./App.scss";
+import { ICard } from "../../types/types";
 
 function App() {
-  const [cards, setCards] = useState<typeof Card[]>([
-    <Card title={"Планы на месяц"} />,
-    <Card title={"Планы на день"} />,
-  ]);
+  const [cards, setCards] = useState<ICard[]>([]);
 
-  function addCard() {
-    // setCards([...cards, <Card title="f" />]);
-  }
+  useEffect(() => {
+    setCards(cardsData);
+  }, []);
+
+  // function addCard() {
+  //   // setCards([...cards, <Card title="f" />]);
+  // }
 
   return (
     <div className="app">
       <ul className="app__cards">
-        {cards.map((item, index) => (
-          <Card key={index} title={"Планы"} />
+        {cards.map((item) => (
+          <Card key={uuidv4()} title={item.title} tasks={item.tasks} />
         ))}
       </ul>
-      <AddButton title={"Добавить еще одну колонку"} onClickFunc={addCard} />
+      <AddButton title={"Добавить еще одну колонку"} />
       <img src="/public/img/background.jpg" />
     </div>
   );

@@ -16,6 +16,7 @@
 
   &__cards {
     display: flex;
+    align-items: flex-start;
     gap: 15px;
   }
 }
