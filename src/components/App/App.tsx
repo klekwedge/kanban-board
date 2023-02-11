@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
 import cardsData from "../../data";
@@ -13,15 +12,39 @@ function App() {
     setCards(cardsData);
   }, []);
 
-  // function addCard() {
-  //   // setCards([...cards, <Card title="f" />]);
+  function deleteTaskFromCard(cardId: string, taskId: string) {
+    console.log(cards[0]);
+    console.log(cardId);
+
+    setCards([
+      ...cards.map((card) => {
+        if (card.id === cardId) {
+          return {
+            ...card,
+            tasks: card.tasks.filter((task) => task.id !== taskId),
+          };
+        } else {
+          return card;
+        }
+      }),
+    ]);
+  }
+
+  // function deleteCard(cardId: string) {
+  //   setCards([...cards.filter((card) => card.id !== cardId)]);
   // }
 
   return (
     <div className="app">
       <ul className="app__cards">
         {cards.map((item) => (
-          <Card key={uuidv4()} title={item.title} tasks={item.tasks} />
+          <Card
+            key={item.id}
+            cardId={item.id}
+            title={item.title}
+            tasks={item.tasks}
+            deleteTaskFromCard={deleteTaskFromCard}
+          />
         ))}
       </ul>
       <AddButton title={"Добавить еще одну колонку"} />

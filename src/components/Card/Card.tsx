@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { ITask } from "../../types/types";
 import AddButton from "../AddButton/AddButton";
 import Task from "../Task/Task";
 import "./Card.scss";
 
 interface CardProps {
   title: string;
-  tasks: string[];
+  tasks: ITask[];
+  cardId: string;
+  deleteTaskFromCard: (cardId: string, taskId: string) => void;
 }
 
-function Card({ title, tasks }: CardProps) {
-  function deleteTask() {
-    console.log("p");
+function Card({ title, tasks, cardId, deleteTaskFromCard }: CardProps) {
+  function deleteTask(taskId: string) {
+    deleteTaskFromCard(cardId, taskId);
   }
 
   return (
@@ -24,7 +26,12 @@ function Card({ title, tasks }: CardProps) {
       <div className="card__tasks">
         <ul className="card__list">
           {tasks.map((item) => (
-            <Task key={uuidv4()} title={item} deleteTask={deleteTask} />
+            <Task
+              key={item.id}
+              taskId={item.id}
+              title={item.taskTitle}
+              deleteTask={deleteTask}
+            />
           ))}
         </ul>
       </div>
