@@ -1,24 +1,73 @@
-.app__add-card {
-  display: flex;
-  gap: 8px;
-  background: #dfe3e6;
+.app__add {
   border-radius: 3px;
-  max-height: 43px;
   min-width: 270px;
-  padding: 12px;
-  cursor: pointer;
 
-  & img {
-    width: 15px;
-    height: 15px;
+  .add__button {
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    background: #dfe3e6;
+    border-radius: 3px;
+    cursor: pointer;
+
+    & img {
+      width: 15px;
+      height: 15px;
+    }
+
+    & h3 {
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 19px;
+      color: #6b808c;
+    }
   }
 
-  & h3 {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 19px;
-    color: #6b808c;
+  .add__dialog {
+    // height: 300px;
+    padding: 12px;
+    display: flex;
+    background: #dfe3e6;
+    flex-direction: column;
+
+    & img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .dialog__textarea {
+      resize: none;
+      background: #ffffff;
+      outline: none;
+      border: none;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      padding: 12px 8px;
+    }
+
+    .dialog__buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+
+      & > * {
+        cursor: pointer;
+      }
+
+      .dialog__add {
+        background: #49c97e;
+        padding: 8px;
+        color: white;
+        border-radius: 5px;
+        font-family: "Montserrat";
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 19px;
+        color: #ffffff;
+      }
+    }
   }
 }

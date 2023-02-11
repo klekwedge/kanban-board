@@ -1,10 +1,10 @@
 .app__card {
   width: 272px;
   background: #dfe3e6;
+  max-height: 610px;
+  // background: #04ddd9;
   border-radius: 3px;
   display: inline-block;
-
-  max-height: 614px;
 
   & h2 {
     font-family: "Montserrat";
@@ -16,22 +16,22 @@
   }
 
   & ul {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     gap: 8px;
     padding: 0px 12px;
   }
 }
 
-.card__block {
+.card__tasks {
   display: flex;
   flex-direction: column;
-  height: 96%;
+  max-height: 530px;
 
-  & ul {
-    flex-grow: 1;
-    max-height: 550px;
+  & .card__list {
+    // flex-grow: 1;
     overflow-y: scroll;
+    margin-bottom: 10px;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -40,10 +40,6 @@
       display: none;
       // width: 0;
     }
-  }
-
-  & div {
-    flex-grow: 0;
   }
 }
 

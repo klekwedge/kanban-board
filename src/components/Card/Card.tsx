@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AddButton from "../AddButton/AddButton";
 import Task from "../Task/Task";
 import "./Card.scss";
@@ -7,6 +8,9 @@ interface CardProps {
 }
 
 function Card({ title }: CardProps) {
+
+
+
   return (
     <li className="app__card card">
       <div className="card__heading">
@@ -14,8 +18,8 @@ function Card({ title }: CardProps) {
         <img src="/public/svg/close.svg" />
       </div>
 
-      <div className="card__block">
-        <ul>
+      <div className="card__tasks">
+        <ul className="card__list">
           <Task title={"ffccffccffccffccffccffccffccffccffccffc"} />
           <Task title={"ff"} />
           <Task title={"ff"} />
@@ -24,9 +28,16 @@ function Card({ title }: CardProps) {
           <Task title={"ff"} />
           <Task title={"ff"} />
           <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
+          <Task title={"ff"} />
         </ul>
-        <AddButton title={"Добавить еще одну карточку"} />
       </div>
+      <AddButton
+        title={"Добавить еще одну карточку"}      />
     </li>
   );
 }
