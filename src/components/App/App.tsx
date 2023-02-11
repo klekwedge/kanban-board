@@ -13,7 +13,18 @@ function App() {
     setCards(cardsData);
   }, []);
 
-  function addCard(cardName: string) {}
+  function addCard(cardName: string) {
+    console.log("!");
+
+    setCards([
+      ...cards,
+      {
+        title: cardName,
+        id: uuidv4(),
+        tasks: [],
+      },
+    ]);
+  }
 
   function addTask(taskName: string, cardId: string) {
     setCards([

@@ -19,7 +19,7 @@ function AddButton({ title, addItem }: AddButtonProps) {
     setIsDialogOpen(false);
   }
 
-  function addTask() {
+  function addItemEvent() {
     if (textAreaRef.current && textAreaRef.current.value !== "") {
       addItem(textAreaRef.current.value);
       setTextAreaValue("");
@@ -46,7 +46,7 @@ function AddButton({ title, addItem }: AddButtonProps) {
             onInput={(e) => setTextAreaValue(e.target.value)}
           />
           <div className="dialog__buttons">
-            <button className="dialog__add" onClick={addTask}>
+            <button className="dialog__add" onClick={addItemEvent}>
               Добавить карточку
             </button>
             <button className="dialog__close" onClick={() => closeDialog()}>
