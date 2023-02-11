@@ -9,18 +9,32 @@ interface CardProps {
   tasks: ITask[];
   cardId: string;
   deleteTaskFromCard: (cardId: string, taskId: string) => void;
+  deleteCard: (cardId: string) => void;
 }
 
-function Card({ title, tasks, cardId, deleteTaskFromCard }: CardProps) {
+function Card({
+  title,
+  tasks,
+  cardId,
+  deleteTaskFromCard,
+  deleteCard,
+}: CardProps) {
   function deleteTask(taskId: string) {
     deleteTaskFromCard(cardId, taskId);
+  }
+
+  function deleteCardEvent(cardId: string) {
+    deleteCard(cardId);
   }
 
   return (
     <li className="app__card card">
       <div className="card__heading">
         <h2>{title}</h2>
-        <img src="/public/svg/close.svg" />
+        <img
+          src="/public/svg/close.svg"
+          onClick={() => deleteCardEvent(cardId)}
+        />
       </div>
 
       <div className="card__tasks">

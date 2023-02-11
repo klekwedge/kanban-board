@@ -13,9 +13,6 @@ function App() {
   }, []);
 
   function deleteTaskFromCard(cardId: string, taskId: string) {
-    console.log(cards[0]);
-    console.log(cardId);
-
     setCards([
       ...cards.map((card) => {
         if (card.id === cardId) {
@@ -30,9 +27,10 @@ function App() {
     ]);
   }
 
-  // function deleteCard(cardId: string) {
-  //   setCards([...cards.filter((card) => card.id !== cardId)]);
-  // }
+  function deleteCard(cardId: string) {
+    console.log('!');
+    setCards([...cards.filter((card) => card.id !== cardId)]);
+  }
 
   return (
     <div className="app">
@@ -43,6 +41,7 @@ function App() {
             cardId={item.id}
             title={item.title}
             tasks={item.tasks}
+            deleteCard={deleteCard}
             deleteTaskFromCard={deleteTaskFromCard}
           />
         ))}
