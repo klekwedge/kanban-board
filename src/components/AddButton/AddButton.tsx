@@ -23,6 +23,7 @@ function AddButton({ title, addItem }: AddButtonProps) {
     if (textAreaRef.current && textAreaRef.current.value !== "") {
       addItem(textAreaRef.current.value);
       setTextAreaValue("");
+      setIsDialogOpen(false);
     } else {
       textAreaRef.current.style.border = "2px solid #FF4040";
     }
