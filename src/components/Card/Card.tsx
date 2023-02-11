@@ -1,3 +1,4 @@
+import AddButton from "../AddButton/AddButton";
 import "./Card.scss";
 
 interface CardProps {
@@ -20,10 +21,7 @@ function Card({ title }: CardProps) {
           <li>Task 3</li>
           <li>Task 4</li>
         </ul>
-        <div className="app__add-card">
-          <img src="/public/svg/plus.svg" />
-          <h3>Добавить еще одну карточку</h3>
-        </div>
+        <AddButton title={'Добавить еще одну карточку'}/>
       </div>
     </li>
   );

@@ -37,30 +37,6 @@
     line-height: 19px;
     color: #000000;
   }
-
-  .app__add-card {
-    display: flex;
-    gap: 8px;
-    background: #dfe3e6;
-    border-radius: 3px;
-    max-height: 43px;
-    padding: 12px;
-    cursor: pointer;
-  }
-
-  & img {
-    width: 15px;
-    height: 15px;
-  }
-
-  & h2 {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 19px;
-    color: #6b808c;
-  }
 }
 
 .card__block {
