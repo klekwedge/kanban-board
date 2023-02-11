@@ -5,8 +5,6 @@ import Card from "../Card/Card";
 import cardsData from "../../data";
 import "./App.scss";
 import { ICard } from "../../types/types";
-import Placeholder from "../Placeholder/Placeholder";
-import DragAndDropItem from "../../DragAndDropItem/DragAndDropItem";
 
 function App() {
   const [cards, setCards] = useState<ICard[]>([]);
@@ -16,8 +14,6 @@ function App() {
   }, []);
 
   function addCard(cardName: string) {
-    console.log("!");
-
     setCards([
       ...cards,
       {
@@ -68,16 +64,6 @@ function App() {
     setCards([...cards.filter((card) => card.id !== cardId)]);
   }
 
-  function dragstart(event) {
-    console.log("!");
-    event.target.classList.add("hold");
-    setTimeout(() => event.target.classList.add("hide"), 0);
-  }
-
-  function dragend(event) {
-    event.target.classList.remove("hold", "hide");
-  }
-
   return (
     <div className="app">
       <ul className="app__cards">
@@ -85,12 +71,10 @@ function App() {
           <Card
             key={card.id}
             card={card}
-            // cardId={card.id}
-            // title={card.title}
-            // tasks={card.tasks}
             deleteCard={deleteCard}
             deleteTaskFromCard={deleteTaskFromCard}
             addTask={addTask}
+            changeCards={() => setCards}
           />
         ))}
       </ul>

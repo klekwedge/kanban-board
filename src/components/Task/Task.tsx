@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { ITask } from "../../types/types";
+import { ICard, ITask } from "../../types/types";
 import "./Task.scss";
 
 interface TaskProps {
   task: ITask;
+  card: ICard;
   deleteTask: (id: any) => void;
+  changeCards: (boards: ICard[]) => void;
 }
 
-function Task({ deleteTask, task }: TaskProps) {
-  const board = "";
-  const item = "";
-
+function Task({ deleteTask, changeCards, task, card }: TaskProps) {
   const [boards, setBoards] = useState([]);
 
-  const [currentBoard, setCurrentBoard] = useState(null);
-  const [currentItem, setCurrentItem] = useState(null);
+  const [currentBoard, setCurrentBoard] = useState<ICard>();
+  const [currentItem, setCurrentItem] = useState<ITask>();
 
   // курсор мыши наведен на элемент при перетаскивани
   function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
@@ -31,7 +30,7 @@ function Task({ deleteTask, task }: TaskProps) {
   }
 
   // пользователь начинает перетаскивание элемента
-  function dragStartHandler(e, board, item) {
+  function dragStartHandler(e, board: ICard, item: ITask) {
     setCurrentBoard(board);
     setCurrentItem(item);
   }
@@ -42,29 +41,33 @@ function Task({ deleteTask, task }: TaskProps) {
   }
 
   // происходит drop элемента.
-  function dropHandler(e: React.DragEvent<HTMLLIElement>, board, item) {
+  function dropHandler(
+    e: React.DragEvent<HTMLLIElement>,
+    board: ICard,
+    item: ITask
+  ) {
     e.preventDefault();
-    if (currentBoard) {
-      const currentIndex = currentBoard.items.indexOf(currentItem);
+    if (currentBoard && currentItem) {
+      const currentIndex = currentBoard.tasks.indexOf(currentItem);
 
-      // currentBoard.items.splice(currentIndex, 1)
+      currentBoard.tasks.splice(currentIndex, 1)
 
-      const dropIndex = board.items.indexOf(item);
-      // board.items.splice(dropIndex + 1, 0, currentItem);
+      const dropIndex = board.tasks.indexOf(item);
+      board.tasks.splice(dropIndex + 1, 0, currentItem);
 
-      // setBoards(
-      //   boards.map((item) => {
-      //     if (item.id === board.id) {
-      //       return board;
-      //     }
+      changeCards(
+        boards.map((item) => {
+          if (item.id === board.id) {
+            return board;
+          }
 
-      //     if (item.id === currentBoard.id) {
-      //       return currentBoard
-      //     }
+          if (item.id === currentBoard.id) {
+            return currentBoard
+          }
 
-      //     return b;
-      //   })
-      // );
+          return b;
+        })
+      );
     }
   }
 
@@ -74,9 +77,9 @@ function Task({ deleteTask, task }: TaskProps) {
       className="card__item item"
       onDragOver={(e) => dragOverHandler(e)}
       onDragLeave={(e) => dragLeaveHandler(e)}
-      onDragStart={(e) => dragStartHandler(e, board, item)}
+      onDragStart={(e) => dragStartHandler(e, card, task)}
       onDragEnd={(e) => dragEndHandler(e)}
-      onDrop={(e) => dropHandler(e, board, item)}
+      onDrop={(e) => dropHandler(e, card, task)}
     >
       <h3>{task.taskTitle}</h3>
       <img src="/public/svg/close.svg" onClick={() => deleteTask(task.id)} />

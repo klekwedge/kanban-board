@@ -9,6 +9,7 @@ interface CardProps {
   deleteTaskFromCard: (cardId: string, taskId: string) => void;
   deleteCard: (cardId: string) => void;
   addTask: (taskName: string, cardId: string) => void;
+  changeCards: () => void;
 }
 
 function Card({
@@ -16,6 +17,7 @@ function Card({
   deleteTaskFromCard,
   deleteCard,
   addTask,
+  changeCards
 }: CardProps) {
   function deleteTask(taskId: string) {
     deleteTaskFromCard(card.id, taskId);
@@ -88,6 +90,8 @@ function Card({
               key={task.id}
               task={task}
               deleteTask={deleteTask}
+              card={card}
+              changeCards={changeCards}
             />
           ))}
         </ul>
