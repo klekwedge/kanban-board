@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import kanban from '/src/slices/kanbanSlice/kanbanSlice'
+import kanban from '../slices/kanbanSlice/kanbanSlice'
 
 const store = configureStore({
   reducer: {
-    kanban,
+    kanban
   },
   devTools: process.env.NODE_ENV !== "production",
 });

@@ -9,6 +9,8 @@ const initialState: ICardsState = {
   currentCard: null,
 };
 
+// PayloadAction
+
 const kanbanSlice = createSlice({
   name: "kanban",
   initialState,
@@ -74,6 +76,7 @@ const kanbanSlice = createSlice({
 });
 
 const { actions, reducer } = kanbanSlice;
+
 export const {
   addCard,
   addTask,

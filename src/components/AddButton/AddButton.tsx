@@ -1,4 +1,4 @@
-import { SyntheticEvent, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./AddButton.scss";
 
 interface AddButtonProps {
@@ -8,7 +8,7 @@ interface AddButtonProps {
 }
 
 function AddButton({ title, addItem, placeholder }: AddButtonProps) {
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState("");
 
@@ -25,20 +25,14 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
       addItem(textAreaRef.current.value);
       setTextAreaValue("");
       setIsDialogOpen(false);
-    } else {
+    } else if (textAreaRef.current) {
       textAreaRef.current.style.border = "2px solid #FF4040";
     }
   }
 
   function addItemByKey(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.code === "Enter") {
-      if (textAreaRef.current && textAreaRef.current.value !== "") {
-        addItem(textAreaRef.current.value);
-        setTextAreaValue("");
-        setIsDialogOpen(false);
-      } else if (textAreaRef.current) {
-        textAreaRef.current.style.border = "2px solid #FF4040";
-      }
+      addItemByClick();
     }
   }
 

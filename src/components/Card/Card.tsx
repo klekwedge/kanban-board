@@ -9,7 +9,7 @@ import {
   addTask,
   changeCards,
 } from "../../slices/kanbanSlice/kanbanSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 
 interface CardProps {
   card: ICard;
@@ -39,13 +39,14 @@ function Card({ card }: CardProps) {
   }
 
   // курсор мыши наведен на элемент при перетаскивани
-  function dragOverHandler(e) {
+  const dragOverHandler: React.DragEventHandler<HTMLLIElement> = (e) => {
     e.preventDefault();
 
     if (e.target.className.includes("card__item")) {
       e.target.style.boxShadow = "0 4px 3px gray";
     }
-  }
+  };
+
 
   // происходит drop элемента.
   function dropCardHandler(e) {

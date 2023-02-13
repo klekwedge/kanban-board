@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
 import "./App.scss";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { addCard } from "../../slices/kanbanSlice/kanbanSlice";
 
 function App() {
