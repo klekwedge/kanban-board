@@ -48,9 +48,9 @@ function Card({ card }: CardProps) {
   }
 
   // происходит drop элемента.
-  function dropCardHandler(e, board) {
+  function dropCardHandler(e) {
     if (!e.target.className.includes("item")) {
-      const newBoard = JSON.parse(JSON.stringify(board));
+      const newBoard = JSON.parse(JSON.stringify(card));
       const oldBoard = JSON.parse(JSON.stringify(currentCard));
 
       const currentIndex = currentCard.tasks.indexOf(currentTask);
@@ -60,14 +60,14 @@ function Card({ card }: CardProps) {
 
       dispatch(
         changeCards(
-          cards.map((card) => {
-            if (card.id === board.id) {
+          cards.map((cardItem) => {
+            if (cardItem.id === card.id) {
               return newBoard;
             }
-            if (card.id === currentCard.id) {
+            if (cardItem.id === currentCard.id) {
               return oldBoard;
             }
-            return card;
+            return cardItem;
           })
         )
       );
@@ -79,7 +79,7 @@ function Card({ card }: CardProps) {
     <li
       className="app__card card"
       onDragOver={(e) => dragOverHandler(e)}
-      onDrop={(e) => dropCardHandler(e, card)}
+      onDrop={(e) => dropCardHandler(e)}
     >
       <div className="card__heading">
         <h2>{card.title}</h2>

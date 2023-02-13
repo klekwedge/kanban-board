@@ -35,7 +35,7 @@ function Task({ deleteTask, task, card }: TaskProps) {
   }
 
   // пользователь начинает перетаскивание элемента
-  function dragStartHandler(e, card: ICard, task: ITask) {
+  function dragStartHandler() {
     dispatch(changeCurrentTask(task));
     dispatch(changeCurrentCard(card));
   }
@@ -45,15 +45,11 @@ function Task({ deleteTask, task, card }: TaskProps) {
     e.target.style.boxShadow = "none";
   }
 
-  // function changeCard(cardId: string) {
-  //   console.log(cardId);
-  // }
-
   // происходит drop элемента.
   function dropHandler(
     e: React.DragEvent<HTMLLIElement>,
-    board: ICard,
-    item: ITask
+    // board: ICard,
+    // item: ITask
   ) {
     e.preventDefault();
     e.target.style.boxShadow = "none";
@@ -63,20 +59,20 @@ function Task({ deleteTask, task, card }: TaskProps) {
       let homeCard = JSON.parse(JSON.stringify(currentCard));
       homeCard.tasks.splice(currentIndex, 1);
 
-      const dropIndex = board.tasks.indexOf(item);
-      let newCard = JSON.parse(JSON.stringify(board));
+      const dropIndex = card.tasks.indexOf(task);
+      let newCard = JSON.parse(JSON.stringify(card));
       newCard.tasks.splice(dropIndex + 1, 0, currentTask);
 
-      const newCards = cards.map((card: ICard) => {
-        if (card.id === board.id) {
+      const newCards = cards.map((cardItem: ICard) => {
+        if (cardItem.id === card.id) {
           return newCard;
         }
 
-        if (card.id === currentCard.id) {
+        if (cardItem.id === currentCard.id) {
           return homeCard;
         }
 
-        return card;
+        return cardItem;
       });
 
       dispatch(changeCards(newCards));
@@ -89,9 +85,9 @@ function Task({ deleteTask, task, card }: TaskProps) {
       className="card__item item"
       onDragOver={(e) => dragOverHandler(e)}
       onDragLeave={(e) => dragLeaveHandler(e)}
-      onDragStart={(e) => dragStartHandler(e, card, task)}
+      onDragStart={(e) => dragStartHandler()}
       onDragEnd={(e) => dragEndHandler(e)}
-      onDrop={(e) => dropHandler(e, card, task)}
+      onDrop={(e) => dropHandler(e)}
     >
       <h3>{task.taskTitle}</h3>
       <img src="/public/svg/close.svg" onClick={() => deleteTask(task.id)} />
