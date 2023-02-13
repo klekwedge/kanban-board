@@ -46,21 +46,18 @@ function Task({ deleteTask, task, card }: TaskProps) {
   }
 
   // происходит drop элемента.
-  function dropHandler(
-    e: React.DragEvent<HTMLLIElement>,
-    // board: ICard,
-    // item: ITask
-  ) {
+  function dropHandler(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
     e.target.style.boxShadow = "none";
 
-    if (currentTask && currentCard) {
-      const currentIndex = currentCard.tasks.indexOf(currentTask);
-      let homeCard = JSON.parse(JSON.stringify(currentCard));
-      homeCard.tasks.splice(currentIndex, 1);
+    const currentIndex = currentCard.tasks.indexOf(currentTask);
+    let oldCard = JSON.parse(JSON.stringify(currentCard));
 
-      const dropIndex = card.tasks.indexOf(task);
-      let newCard = JSON.parse(JSON.stringify(card));
+    const dropIndex = card.tasks.indexOf(task);
+    let newCard = JSON.parse(JSON.stringify(card));
+
+    if (card.id !== currentCard.id) {
+      oldCard.tasks.splice(currentIndex, 1);
       newCard.tasks.splice(dropIndex + 1, 0, currentTask);
 
       const newCards = cards.map((cardItem: ICard) => {
@@ -69,10 +66,25 @@ function Task({ deleteTask, task, card }: TaskProps) {
         }
 
         if (cardItem.id === currentCard.id) {
-          return homeCard;
+          return oldCard;
         }
 
         return cardItem;
+      });
+
+      dispatch(changeCards(newCards));
+    } else {
+      [newCard.tasks[dropIndex], newCard.tasks[currentIndex]] = [
+        newCard.tasks[currentIndex],
+        newCard.tasks[dropIndex],
+      ];
+
+      const newCards = cards.map((cardItem: ICard) => {
+        if (cardItem.id === newCard.id) {
+          return newCard;
+        } else {
+          return cardItem;
+        }
       });
 
       dispatch(changeCards(newCards));

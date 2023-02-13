@@ -14,7 +14,6 @@ const kanbanSlice = createSlice({
   initialState,
   reducers: {
     addCard: (state, action) => {
-      // cardTitle: string
       state.cards.push({
         title: action.payload,
         id: uuidv4(),
@@ -22,7 +21,6 @@ const kanbanSlice = createSlice({
       });
     },
     addTask: (state, action) => {
-      // taskName: string, cardId: string
       state.cards = [
         ...state.cards.map((card) => {
           if (card.id === action.payload.cardId) {
@@ -43,7 +41,6 @@ const kanbanSlice = createSlice({
       ];
     },
     deleteTaskFromCard: (state, action) => {
-      // cardId: string, taskId: string
       state.cards = [
         ...state.cards.map((card) => {
           if (card.id === action.payload.cardId) {
@@ -60,7 +57,6 @@ const kanbanSlice = createSlice({
       ];
     },
     deleteCard: (state, action) => {
-      // cardId: string
       state.cards = [
         ...state.cards.filter((card) => card.id !== action.payload),
       ];
