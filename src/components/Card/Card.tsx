@@ -7,8 +7,9 @@ import {
   deleteTaskFromCard,
   deleteCard,
   addTask,
+  changeCards,
 } from "../../slices/kanbanSlice/kanbanSlice";
-import { useAppDispatch } from "../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 
 interface CardProps {
   card: ICard;
@@ -16,6 +17,9 @@ interface CardProps {
 
 function Card({ card }: CardProps) {
   const dispatch = useAppDispatch();
+  const { cards, currentTask, currentCard } = useAppSelector(
+    (state) => state.kanban
+  );
 
   function deleteTask(taskId: string) {
     dispatch(
@@ -34,50 +38,48 @@ function Card({ card }: CardProps) {
     dispatch(addTask({ taskName: taskName, cardId: card.id }));
   }
 
- 
-
-  //
-  //
-  //
-  //
-  //
-
   // курсор мыши наведен на элемент при перетаскивани
-  // function dragOverHandler(e) {
-  //   e.preventDefault();
+  function dragOverHandler(e) {
+    e.preventDefault();
 
-  //   if (e.target.className.includes("card__item")) {
-  //     e.target.style.boxShadow = "0 4px 3px gray";
-  //   }
-  // }
+    if (e.target.className.includes("card__item")) {
+      e.target.style.boxShadow = "0 4px 3px gray";
+    }
+  }
 
-  // // происходит drop элемента.
-  // function dropCardHandler(e, board) {
-  //   if (!e.target.className.includes("item")) {
-  //     board.items.push(currentItem);
-  //     const currentIndex = currentBoard.items.indexOf(currentItem);
-  //     // currentBoard.items.splice(currentIndex, 1)
+  // происходит drop элемента.
+  function dropCardHandler(e, board) {
+    if (!e.target.className.includes("item")) {
+      const newBoard = JSON.parse(JSON.stringify(board));
+      const oldBoard = JSON.parse(JSON.stringify(currentCard));
 
-  //     // setBoards(
-  //     //   boards.map((item) => {
-  //     //     if (item.id === board.id) {
-  //     //       return board;
-  //     //     }
-  //     //     if (item.id === currentBoard.id) {
-  //     //       return currentBoard;
-  //     //     }
-  //     //     return b;
-  //     //   })
-  //     // );
-  //     e.target.style.boxShadow = "none";
-  //   }
-  // }
+      const currentIndex = currentCard.tasks.indexOf(currentTask);
+
+      newBoard.tasks.push(currentTask);
+      oldBoard.tasks.splice(currentIndex, 1);
+
+      dispatch(
+        changeCards(
+          cards.map((card) => {
+            if (card.id === board.id) {
+              return newBoard;
+            }
+            if (card.id === currentCard.id) {
+              return oldBoard;
+            }
+            return card;
+          })
+        )
+      );
+      e.target.style.boxShadow = "none";
+    }
+  }
 
   return (
     <li
       className="app__card card"
-      // onDragOver={(e) => dragOverHandler(e)}
-      // onDrop={(e) => dropCardHandler(e, card)}
+      onDragOver={(e) => dragOverHandler(e)}
+      onDrop={(e) => dropCardHandler(e, card)}
     >
       <div className="card__heading">
         <h2>{card.title}</h2>

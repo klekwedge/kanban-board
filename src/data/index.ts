@@ -42,18 +42,18 @@ const cardsData = [
     title: "План на день",
     id: uuidv4(),
     tasks: [
-      {
-        taskTitle: "Записаться на курс по React",
-        id: uuidv4(),
-      },
-      {
-        taskTitle: "Забронировать тир на субботу",
-        id: uuidv4(),
-      },
-      {
-        taskTitle: "Накидать тем для статей в блог",
-        id: uuidv4(),
-      },
+      // {
+      //   taskTitle: "Записаться на курс по React",
+      //   id: uuidv4(),
+      // },
+      // {
+      //   taskTitle: "Забронировать тир на субботу",
+      //   id: uuidv4(),
+      // },
+      // {
+      //   taskTitle: "Накидать тем для статей в блог",
+      //   id: uuidv4(),
+      // },
     ],
   },
 ];
