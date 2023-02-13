@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import cardsData from "../../data";
-import { ICardsState } from "./kanbanSlice.types";
+import { ICard, ITask } from "../../types/types";
+import { AddTaskPayload, DeleteTaskPayload, ICardsState } from "./kanbanSlice.types";
 
 const initialState: ICardsState = {
   cards: cardsData,
@@ -15,14 +16,14 @@ const kanbanSlice = createSlice({
   name: "kanban",
   initialState,
   reducers: {
-    addCard: (state, action) => {
+    addCard: (state, action: PayloadAction<string>) => {
       state.cards.push({
         title: action.payload,
         id: uuidv4(),
         tasks: [],
       });
     },
-    addTask: (state, action) => {
+    addTask: (state, action: PayloadAction<AddTaskPayload>) => {
       state.cards = [
         ...state.cards.map((card) => {
           if (card.id === action.payload.cardId) {
@@ -42,7 +43,7 @@ const kanbanSlice = createSlice({
         }),
       ];
     },
-    deleteTaskFromCard: (state, action) => {
+    deleteTaskFromCard: (state, action:PayloadAction<DeleteTaskPayload>) => {
       state.cards = [
         ...state.cards.map((card) => {
           if (card.id === action.payload.cardId) {
@@ -58,18 +59,18 @@ const kanbanSlice = createSlice({
         }),
       ];
     },
-    deleteCard: (state, action) => {
+    deleteCard: (state, action: PayloadAction<string>) => {
       state.cards = [
         ...state.cards.filter((card) => card.id !== action.payload),
       ];
     },
-    changeCards: (state, action) => {
+    changeCards: (state, action: PayloadAction<ICard[]>) => {
       state.cards = action.payload;
     },
-    changeCurrentTask: (state, action) => {
+    changeCurrentTask: (state, action: PayloadAction<ITask>) => {
       state.currentTask = action.payload;
     },
-    changeCurrentCard: (state, action) => {
+    changeCurrentCard: (state, action: PayloadAction<ICard>) => {
       state.currentCard = action.payload;
     },
   },

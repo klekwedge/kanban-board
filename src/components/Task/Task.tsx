@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   changeCards,
   changeCurrentCard,
@@ -50,44 +49,46 @@ function Task({ deleteTask, task, card }: TaskProps) {
     e.preventDefault();
     e.target.style.boxShadow = "none";
 
-    const currentIndex = currentCard.tasks.indexOf(currentTask);
-    let oldCard = JSON.parse(JSON.stringify(currentCard));
+    if (currentCard && currentTask) {
+      const currentIndex = currentCard.tasks.indexOf(currentTask);
+      let oldCard = JSON.parse(JSON.stringify(currentCard));
 
-    const dropIndex = card.tasks.indexOf(task);
-    let newCard = JSON.parse(JSON.stringify(card));
+      const dropIndex = card.tasks.indexOf(task);
+      let newCard = JSON.parse(JSON.stringify(card));
 
-    if (card.id !== currentCard.id) {
-      oldCard.tasks.splice(currentIndex, 1);
-      newCard.tasks.splice(dropIndex + 1, 0, currentTask);
+      if (card.id !== currentCard.id) {
+        oldCard.tasks.splice(currentIndex, 1);
+        newCard.tasks.splice(dropIndex + 1, 0, currentTask);
 
-      const newCards = cards.map((cardItem: ICard) => {
-        if (cardItem.id === card.id) {
-          return newCard;
-        }
+        const newCards = cards.map((cardItem: ICard) => {
+          if (cardItem.id === card.id) {
+            return newCard;
+          }
 
-        if (cardItem.id === currentCard.id) {
-          return oldCard;
-        }
+          if (cardItem.id === currentCard.id) {
+            return oldCard;
+          }
 
-        return cardItem;
-      });
-
-      dispatch(changeCards(newCards));
-    } else {
-      [newCard.tasks[dropIndex], newCard.tasks[currentIndex]] = [
-        newCard.tasks[currentIndex],
-        newCard.tasks[dropIndex],
-      ];
-
-      const newCards = cards.map((cardItem: ICard) => {
-        if (cardItem.id === newCard.id) {
-          return newCard;
-        } else {
           return cardItem;
-        }
-      });
+        });
 
-      dispatch(changeCards(newCards));
+        dispatch(changeCards(newCards));
+      } else {
+        [newCard.tasks[dropIndex], newCard.tasks[currentIndex]] = [
+          newCard.tasks[currentIndex],
+          newCard.tasks[dropIndex],
+        ];
+
+        const newCards = cards.map((cardItem: ICard) => {
+          if (cardItem.id === newCard.id) {
+            return newCard;
+          } else {
+            return cardItem;
+          }
+        });
+
+        dispatch(changeCards(newCards));
+      }
     }
   }
 
@@ -97,7 +98,7 @@ function Task({ deleteTask, task, card }: TaskProps) {
       className="card__item item"
       onDragOver={(e) => dragOverHandler(e)}
       onDragLeave={(e) => dragLeaveHandler(e)}
-      onDragStart={(e) => dragStartHandler()}
+      onDragStart={dragStartHandler}
       onDragEnd={(e) => dragEndHandler(e)}
       onDrop={(e) => dropHandler(e)}
     >

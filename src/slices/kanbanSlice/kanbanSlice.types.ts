@@ -5,3 +5,14 @@ export interface ICardsState {
   currentTask: ITask | null;
   currentCard: ICard | null;
 }
+
+export interface AddTaskPayload {
+  taskName: string;
+  cardId: string;
+}
+
+
+export interface DeleteTaskPayload {
+  taskId: string;
+  cardId: string;
+}

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./AddButton.scss";
 
 interface AddButtonProps {
@@ -19,6 +19,12 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
   function closeDialog() {
     setIsDialogOpen(false);
   }
+
+  useEffect(() => {
+    if (isDialogOpen && textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, [isDialogOpen]);
 
   function addItemByClick() {
     if (textAreaRef.current && textAreaRef.current.value !== "") {

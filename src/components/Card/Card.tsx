@@ -49,8 +49,8 @@ function Card({ card }: CardProps) {
 
 
   // происходит drop элемента.
-  function dropCardHandler(e) {
-    if (!e.target.className.includes("item") && card.id !== currentCard.id) {
+  const dropCardHandler: React.DragEventHandler<HTMLLIElement> = (e) => {
+    if (!e.target.className.includes("item") && currentCard && currentTask && card.id !== currentCard.id) {
       const newBoard = JSON.parse(JSON.stringify(card));
       const oldBoard = JSON.parse(JSON.stringify(currentCard));
 
