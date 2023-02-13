@@ -101,7 +101,11 @@ function Card({ card }: CardProps) {
           ))}
         </ul>
       </div>
-      <AddButton title={"Добавить еще одну карточку"} addItem={addTaskEvent} />
+      <AddButton
+        title={"Добавить еще одну карточку"}
+        addItem={addTaskEvent}
+        placeholder="Введите название карточки"
+      />
     </li>
   );
 }

@@ -21,7 +21,11 @@ function App() {
           <Card key={card.id} card={card} />
         ))}
       </ul>
-      <AddButton title={"Добавить еще одну колонку"} addItem={addCardEvent} />
+      <AddButton
+        title={"Добавить еще одну колонку"}
+        addItem={addCardEvent}
+        placeholder="Введите название колонки"
+      />
       <img src="/public/img/background.jpg" />
     </div>
   );

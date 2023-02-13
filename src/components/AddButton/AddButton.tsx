@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
+import { SyntheticEvent, useRef, useState } from "react";
 import "./AddButton.scss";
 
 interface AddButtonProps {
   title: string;
+  placeholder: string;
   addItem: (nameItem: string) => void;
 }
 
-function AddButton({ title, addItem }: AddButtonProps) {
+function AddButton({ title, addItem, placeholder }: AddButtonProps) {
   const textAreaRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState("");
@@ -19,13 +20,25 @@ function AddButton({ title, addItem }: AddButtonProps) {
     setIsDialogOpen(false);
   }
 
-  function addItemEvent() {
+  function addItemByClick() {
     if (textAreaRef.current && textAreaRef.current.value !== "") {
       addItem(textAreaRef.current.value);
       setTextAreaValue("");
       setIsDialogOpen(false);
     } else {
       textAreaRef.current.style.border = "2px solid #FF4040";
+    }
+  }
+
+  function addItemByKey(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.code === "Enter") {
+      if (textAreaRef.current && textAreaRef.current.value !== "") {
+        addItem(textAreaRef.current.value);
+        setTextAreaValue("");
+        setIsDialogOpen(false);
+      } else if (textAreaRef.current) {
+        textAreaRef.current.style.border = "2px solid #FF4040";
+      }
     }
   }
 
@@ -41,13 +54,14 @@ function AddButton({ title, addItem }: AddButtonProps) {
           <textarea
             ref={textAreaRef}
             className="dialog__textarea"
-            placeholder="Введите название карточки"
+            placeholder={placeholder}
             rows={1}
             value={textAreaValue}
             onInput={(e) => setTextAreaValue(e.target.value)}
+            onKeyDown={(e) => addItemByKey(e)}
           />
           <div className="dialog__buttons">
-            <button className="dialog__add" onClick={addItemEvent}>
+            <button className="dialog__add" onClick={addItemByClick}>
               Добавить карточку
             </button>
             <button className="dialog__close" onClick={() => closeDialog()}>
