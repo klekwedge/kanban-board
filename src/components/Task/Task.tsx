@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { changeCards } from "../../slices/kanbanSlice/kanbanSlice";
+import {
+  changeCards,
+  changeCurrentCard,
+  changeCurrentTask,
+} from "../../slices/kanbanSlice/kanbanSlice";
 import { ICard, ITask } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import "./Task.scss";
@@ -11,11 +15,10 @@ interface TaskProps {
 }
 
 function Task({ deleteTask, task, card }: TaskProps) {
-  const { cards } = useAppSelector((state) => state.kanban);
+  const { cards, currentTask, currentCard } = useAppSelector(
+    (state) => state.kanban
+  );
   const dispatch = useAppDispatch();
-
-  const [currentBoard, setCurrentBoard] = useState<ICard>(card);
-  const [currentItem, setCurrentItem] = useState<ITask>(task);
 
   // курсор мыши наведен на элемент при перетаскивани
   function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
@@ -32,15 +35,19 @@ function Task({ deleteTask, task, card }: TaskProps) {
   }
 
   // пользователь начинает перетаскивание элемента
-  function dragStartHandler(e, board: ICard, item: ITask) {
-    setCurrentBoard(board);
-    setCurrentItem(item);
+  function dragStartHandler(e, card: ICard, task: ITask) {
+    dispatch(changeCurrentTask(task));
+    dispatch(changeCurrentCard(card));
   }
 
   // пользователь отпускает курсор мыши в процессе перетаскивания.
   function dragEndHandler(e) {
     e.target.style.boxShadow = "none";
   }
+
+  // function changeCard(cardId: string) {
+  //   console.log(cardId);
+  // }
 
   // происходит drop элемента.
   function dropHandler(
@@ -49,24 +56,27 @@ function Task({ deleteTask, task, card }: TaskProps) {
     item: ITask
   ) {
     e.preventDefault();
-    if (currentBoard && currentItem) {
-      const currentIndex = currentBoard.tasks.indexOf(currentItem);
+    e.target.style.boxShadow = "none";
 
-      currentBoard.tasks.splice(currentIndex, 1);
+    if (currentTask && currentCard) {
+      const currentIndex = currentCard.tasks.indexOf(currentTask);
+      let homeCard = JSON.parse(JSON.stringify(currentCard));
+      homeCard.tasks.splice(currentIndex, 1);
 
       const dropIndex = board.tasks.indexOf(item);
-      board.tasks.splice(dropIndex + 1, 0, currentItem);
+      let newCard = JSON.parse(JSON.stringify(board));
+      newCard.tasks.splice(dropIndex + 1, 0, currentTask);
 
-      const newCards = cards.map((item) => {
-        if (item.id === board.id) {
-          return board;
+      const newCards = cards.map((card: ICard) => {
+        if (card.id === board.id) {
+          return newCard;
         }
 
-        if (item.id === currentBoard.id) {
-          return currentBoard;
+        if (card.id === currentCard.id) {
+          return homeCard;
         }
 
-        return item;
+        return card;
       });
 
       dispatch(changeCards(newCards));

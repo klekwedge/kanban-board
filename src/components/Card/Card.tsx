@@ -34,6 +34,8 @@ function Card({ card }: CardProps) {
     dispatch(addTask({ taskName: taskName, cardId: card.id }));
   }
 
+ 
+
   //
   //
   //
@@ -41,41 +43,41 @@ function Card({ card }: CardProps) {
   //
 
   // курсор мыши наведен на элемент при перетаскивани
-  function dragOverHandler(e) {
-    e.preventDefault();
+  // function dragOverHandler(e) {
+  //   e.preventDefault();
 
-    if (e.target.className.includes("card__item")) {
-      e.target.style.boxShadow = "0 4px 3px gray";
-    }
-  }
+  //   if (e.target.className.includes("card__item")) {
+  //     e.target.style.boxShadow = "0 4px 3px gray";
+  //   }
+  // }
 
-  // происходит drop элемента.
-  function dropCardHandler(e, board) {
-    if (!e.target.className.includes("item")) {
-      board.items.push(currentItem);
-      const currentIndex = currentBoard.items.indexOf(currentItem);
-      // currentBoard.items.splice(currentIndex, 1)
+  // // происходит drop элемента.
+  // function dropCardHandler(e, board) {
+  //   if (!e.target.className.includes("item")) {
+  //     board.items.push(currentItem);
+  //     const currentIndex = currentBoard.items.indexOf(currentItem);
+  //     // currentBoard.items.splice(currentIndex, 1)
 
-      // setBoards(
-      //   boards.map((item) => {
-      //     if (item.id === board.id) {
-      //       return board;
-      //     }
-      //     if (item.id === currentBoard.id) {
-      //       return currentBoard;
-      //     }
-      //     return b;
-      //   })
-      // );
-      e.target.style.boxShadow = "none";
-    }
-  }
+  //     // setBoards(
+  //     //   boards.map((item) => {
+  //     //     if (item.id === board.id) {
+  //     //       return board;
+  //     //     }
+  //     //     if (item.id === currentBoard.id) {
+  //     //       return currentBoard;
+  //     //     }
+  //     //     return b;
+  //     //   })
+  //     // );
+  //     e.target.style.boxShadow = "none";
+  //   }
+  // }
 
   return (
     <li
       className="app__card card"
-      onDragOver={(e) => dragOverHandler(e)}
-      onDrop={(e) => dropCardHandler(e, card)}
+      // onDragOver={(e) => dragOverHandler(e)}
+      // onDrop={(e) => dropCardHandler(e, card)}
     >
       <div className="card__heading">
         <h2>{card.title}</h2>

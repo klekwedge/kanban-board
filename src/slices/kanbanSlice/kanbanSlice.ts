@@ -5,6 +5,7 @@ import { ICardsState } from "./kanbanSlice.types";
 
 const initialState: ICardsState = {
   cards: cardsData,
+  currentTask: null,
   currentCard: null,
 };
 
@@ -67,11 +68,24 @@ const kanbanSlice = createSlice({
     changeCards: (state, action) => {
       state.cards = action.payload;
     },
+    changeCurrentTask: (state, action) => {
+      state.currentTask = action.payload;
+    },
+    changeCurrentCard: (state, action) => {
+      state.currentCard = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = kanbanSlice;
-export const { addCard, addTask, deleteTaskFromCard, deleteCard, changeCards } =
-  actions;
+export const {
+  addCard,
+  addTask,
+  deleteTaskFromCard,
+  deleteCard,
+  changeCards,
+  changeCurrentTask,
+  changeCurrentCard,
+} = actions;
 
 export default reducer;
