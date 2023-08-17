@@ -36,14 +36,18 @@ function Card({ card }: CardProps) {
   const dragOverHandler: React.DragEventHandler<HTMLLIElement> = (e) => {
     e.preventDefault();
 
-    if (e.target.className.includes('card__item')) {
-      e.target.style.boxShadow = '0 4px 3px gray';
+    const target = e.target as HTMLElement;
+
+    if (target.className.includes('card__item')) {
+      target.style.boxShadow = '0 4px 3px gray';
     }
   };
 
   // происходит drop элемента.
   const dropCardHandler: React.DragEventHandler<HTMLLIElement> = (e) => {
-    if (!e.target.className.includes('item') && currentCard && currentTask && card.id !== currentCard.id) {
+    const target = e.target as HTMLElement;
+
+    if (!target.className.includes('item') && currentCard && currentTask && card.id !== currentCard.id) {
       const newBoard = JSON.parse(JSON.stringify(card));
       const oldBoard = JSON.parse(JSON.stringify(currentCard));
 
@@ -65,7 +69,7 @@ function Card({ card }: CardProps) {
           }),
         ),
       );
-      e.target.style.boxShadow = 'none';
+      target.style.boxShadow = 'none';
     }
   };
 

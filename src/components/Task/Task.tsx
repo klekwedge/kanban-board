@@ -16,15 +16,17 @@ function Task({ deleteTask, task, card }: TaskProps) {
   // курсор мыши наведен на элемент при перетаскивани
   function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
+    const target = e.target as HTMLElement;
 
-    if (e.target.className.includes('card__item')) {
-      e.target.style.boxShadow = '0 4px 3px gray';
+    if (target.className.includes('card__item')) {
+      target.style.boxShadow = '0 4px 3px gray';
     }
   }
 
   // курсор мыши покидает пределы перетаскиваемого элемента
   function dragLeaveHandler(e: React.DragEvent<HTMLLIElement>) {
-    e.target.style.boxShadow = 'none';
+    const target = e.target as HTMLElement;
+    target.style.boxShadow = 'none';
   }
 
   // пользователь начинает перетаскивание элемента
@@ -35,13 +37,15 @@ function Task({ deleteTask, task, card }: TaskProps) {
 
   // пользователь отпускает курсор мыши в процессе перетаскивания.
   function dragEndHandler(e: React.DragEvent<HTMLLIElement>) {
-    e.target.style.boxShadow = 'none';
+    const target = e.target as HTMLElement;
+    target.style.boxShadow = 'none';
   }
 
   // происходит drop элемента.
   function dropHandler(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
-    e.target.style.boxShadow = 'none';
+    const target = e.target as HTMLElement;
+    target.style.boxShadow = 'none';
 
     if (currentCard && currentTask) {
       const currentIndex = currentCard.tasks.indexOf(currentTask);

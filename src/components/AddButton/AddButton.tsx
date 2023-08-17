@@ -57,7 +57,10 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
             placeholder={placeholder}
             rows={1}
             value={textAreaValue}
-            onInput={(e) => setTextAreaValue(e.target.value)}
+            onInput={(e) => {
+              const target = e.target as HTMLElement;
+              setTextAreaValue(target.value);
+            }}
             onKeyDown={(e) => addItemByKey(e)}
           />
           <div className="dialog__buttons">
