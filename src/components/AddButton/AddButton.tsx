@@ -58,7 +58,7 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
             rows={1}
             value={textAreaValue}
             onInput={(e) => {
-              const target = e.target as HTMLElement;
+              const target = e.target as HTMLFormElement;
               setTextAreaValue(target.value);
             }}
             onKeyDown={(e) => addItemByKey(e)}
