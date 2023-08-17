@@ -100,7 +100,7 @@ function Task({ deleteTask, task, card }: TaskProps) {
       onDrop={(e) => dropHandler(e)}
     >
       <h3>{task.taskTitle}</h3>
-      <img src="/public/svg/close.svg" alt="close icon" onClick={() => deleteTask(task.id)} />
+      <img src="/svg/close.svg" alt="close icon" onClick={() => deleteTask(task.id)} />
     </li>
   );
 }

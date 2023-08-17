@@ -77,7 +77,7 @@ function Card({ card }: CardProps) {
     <li className="app__card card" onDragOver={(e) => dragOverHandler(e)} onDrop={(e) => dropCardHandler(e)}>
       <div className="card__heading">
         <h2>{card.title}</h2>
-        <img alt="close icon" src="/public/svg/close.svg" onClick={() => deleteCardEvent(card.id)} />
+        <img alt="close icon" src="/svg/close.svg" onClick={() => deleteCardEvent(card.id)} />
       </div>
 
       <div className="card__tasks">

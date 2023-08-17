@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
 import "./App.scss";
@@ -20,11 +21,11 @@ function App() {
         ))}
       </ul>
       <AddButton
-        title={"Добавить еще одну колонку"}
+        title="Добавить еще одну колонку"
         addItem={addCardEvent}
         placeholder="Введите название колонки"
       />
-      <img src="/public/img/background.jpg" />
+      <img src="/img/background.jpg" alt='background'/>
     </div>
   );
 }

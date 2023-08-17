@@ -46,7 +46,7 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
     <div className="app__add add">
       {!isDialogOpen ? (
         <div className="add__button" onClick={() => openDialog()}>
-          <img src="/public/svg/plus.svg" alt="plus icon" />
+          <img src="/svg/plus.svg" alt="plus icon" />
           <h3>{title}</h3>
         </div>
       ) : (
@@ -68,7 +68,7 @@ function AddButton({ title, addItem, placeholder }: AddButtonProps) {
               Добавить карточку
             </button>
             <button type="button" className="dialog__close" onClick={() => closeDialog()}>
-              <img src="/public/svg/close.svg" alt="close icon" />
+              <img src="/svg/close.svg" alt="close icon" />
             </button>
           </div>
         </div>
