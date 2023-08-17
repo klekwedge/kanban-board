@@ -1,36 +1,30 @@
-import {
-  changeCards,
-  changeCurrentCard,
-  changeCurrentTask,
-} from "../../slices/kanbanSlice/kanbanSlice";
-import { ICard, ITask } from "../../types/types";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
-import "./Task.scss";
+import { changeCards, changeCurrentCard, changeCurrentTask } from '../../slices/kanbanSlice/kanbanSlice';
+import { ICard, ITask } from '../../types/types';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import './Task.scss';
 
 interface TaskProps {
   task: ITask;
   card: ICard;
-  deleteTask: (id: any) => void;
+  deleteTask: (id: string) => void;
 }
 
 function Task({ deleteTask, task, card }: TaskProps) {
-  const { cards, currentTask, currentCard } = useAppSelector(
-    (state) => state.kanban
-  );
+  const { cards, currentTask, currentCard } = useAppSelector((state) => state.kanban);
   const dispatch = useAppDispatch();
 
   // курсор мыши наведен на элемент при перетаскивани
   function dragOverHandler(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
 
-    if (e.target.className.includes("card__item")) {
-      e.target.style.boxShadow = "0 4px 3px gray";
+    if (e.target.className.includes('card__item')) {
+      e.target.style.boxShadow = '0 4px 3px gray';
     }
   }
 
   // курсор мыши покидает пределы перетаскиваемого элемента
-  function dragLeaveHandler(e) {
-    e.target.style.boxShadow = "none";
+  function dragLeaveHandler(e: React.DragEvent<HTMLLIElement>) {
+    e.target.style.boxShadow = 'none';
   }
 
   // пользователь начинает перетаскивание элемента
@@ -40,21 +34,21 @@ function Task({ deleteTask, task, card }: TaskProps) {
   }
 
   // пользователь отпускает курсор мыши в процессе перетаскивания.
-  function dragEndHandler(e) {
-    e.target.style.boxShadow = "none";
+  function dragEndHandler(e: React.DragEvent<HTMLLIElement>) {
+    e.target.style.boxShadow = 'none';
   }
 
   // происходит drop элемента.
   function dropHandler(e: React.DragEvent<HTMLLIElement>) {
     e.preventDefault();
-    e.target.style.boxShadow = "none";
+    e.target.style.boxShadow = 'none';
 
     if (currentCard && currentTask) {
       const currentIndex = currentCard.tasks.indexOf(currentTask);
-      let oldCard = JSON.parse(JSON.stringify(currentCard));
+      const oldCard = JSON.parse(JSON.stringify(currentCard));
 
       const dropIndex = card.tasks.indexOf(task);
-      let newCard = JSON.parse(JSON.stringify(card));
+      const newCard = JSON.parse(JSON.stringify(card));
 
       if (card.id !== currentCard.id) {
         oldCard.tasks.splice(currentIndex, 1);
@@ -82,9 +76,8 @@ function Task({ deleteTask, task, card }: TaskProps) {
         const newCards = cards.map((cardItem: ICard) => {
           if (cardItem.id === newCard.id) {
             return newCard;
-          } else {
-            return cardItem;
           }
+          return cardItem;
         });
 
         dispatch(changeCards(newCards));
@@ -103,7 +96,7 @@ function Task({ deleteTask, task, card }: TaskProps) {
       onDrop={(e) => dropHandler(e)}
     >
       <h3>{task.taskTitle}</h3>
-      <img src="/public/svg/close.svg" onClick={() => deleteTask(task.id)} />
+      <img src="/public/svg/close.svg" alt="close icon" onClick={() => deleteTask(task.id)} />
     </li>
   );
 }
