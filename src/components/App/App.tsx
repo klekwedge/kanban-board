@@ -1,7 +1,7 @@
 import AddButton from "../AddButton/AddButton";
 import Card from "../Card/Card";
 import "./App.scss";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { addCard } from "../../slices/kanbanSlice/kanbanSlice";
 
 function App() {

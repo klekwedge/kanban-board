@@ -4,7 +4,7 @@ import {
   changeCurrentTask,
 } from "../../slices/kanbanSlice/kanbanSlice";
 import { ICard, ITask } from "../../types/types";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import "./Task.scss";
 
 interface TaskProps {

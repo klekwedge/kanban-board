@@ -9,7 +9,7 @@ import {
   addTask,
   changeCards,
 } from "../../slices/kanbanSlice/kanbanSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 
 interface CardProps {
   card: ICard;
